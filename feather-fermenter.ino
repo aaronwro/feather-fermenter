@@ -194,9 +194,10 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.print("Connecting to SSID: \n");
+  display.print("SSID: ");
   display.print(WIFI_SSID);
   display.print("\n");
+  display.print("Connecting to \n Adafruit IO...");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
   
@@ -209,18 +210,19 @@ void setup() {
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
-  io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
+    io.connect();
     Serial.print(".");
-    delay(500);
+    delay(5000);
   }
 
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
 
+  
 }
 
 void loop() {
@@ -268,6 +270,24 @@ void loop() {
   //oled.setBattery(battery);
   //oled.renderBattery();
 
+  display.clearDisplay();
+  display.setCursor(0,0);
+  display.print("SSID: ");
+  display.print(WIFI_SSID);
+  display.print("\n");
+  display.print("temp: ");
+  display.print(celsius);
+  display.print("C ");
+  display.print(fahrenheit);
+  display.print("F\n");
+  display.print("humi: ");
+  display.print(event.relative_humidity);
+  display.print(" % \n");
+  display.print("batt: ");
+  display.print(battery);
+  display.setCursor(0,0);
+  display.display(); // actually display all of the above
+  
   // print the count value to the OLED
   //oled.print("count: ");
   //oled.println(count);
