@@ -268,7 +268,7 @@ void loop() {
   float batt = getBatteryVoltage();
   
   // save current voltage to Adafruit IO
-  battery.save(batt);
+  battery->save(batt);
 
   // update the battery icon
   //oled.setBattery(battery);
