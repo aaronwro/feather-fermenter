@@ -51,6 +51,7 @@ DHT_Unified dht(DH22_DATA_PIN, DHT22);
 // set up the 'temperature' and 'humidity' feeds
 AdafruitIO_Feed *temperature = io.feed("temperature");
 AdafruitIO_Feed *humidity = io.feed("humidity");
+AdafruitIO_Feed *battery = io.feed("battery-voltage");
 
 /************************ OLED Config *******************************/
 
@@ -264,7 +265,10 @@ void loop() {
 
   // get the current voltage of the battery from
   // one of the platform specific functions below
-  float battery = getBatteryVoltage();
+  float batt = getBatteryVoltage();
+  
+  // save current voltage to Adafruit IO
+  battery.save(batt);
 
   // update the battery icon
   //oled.setBattery(battery);
@@ -284,7 +288,7 @@ void loop() {
   display.print(event.relative_humidity);
   display.print(" % \n");
   display.print("batt: ");
-  display.print(battery);
+  display.print(batt);
   display.setCursor(0,0);
   display.display(); // actually display all of the above
   
